@@ -34,6 +34,14 @@ async function getConnection() {
 
 app.use(express.json());
 
+app.options('/create', (req, res) => {
+    // Set CORS headers for preflight requests
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+    res.status(200).end();
+});
+
 app.post('/create', async (req, res) => {
     const {
         urlFoto,
@@ -48,12 +56,23 @@ app.post('/create', async (req, res) => {
         celular
     } = req.body.data;
 
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+
+  function formatDate(date) { 
+    const day = date.getDate().toString().padStart(2, '0'); 
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const year = date.getFullYear(); 
+    return `${day}-${month}-${year}`; 
+  }
+
     const connection = await getConnection();
     const collection = connection.db('MainDB').collection('usuarios');
     const logCollection = connection.db('MainDB').collection('log');
 
     if (!urlFoto || !tipoDocumento || !numeroDocumento || !primerNombre || !apellidos || !fechaNacimiento || !genero || !correo || !celular) {
-        return res.status(400).json({ result: 'verificar' });
+        return res.status(200).json({ result: 'verificar' });
     }
 
     // Process photo URL
@@ -67,12 +86,12 @@ app.post('/create', async (req, res) => {
     const sizeInBytes = metadata[0].size;
 
     if (sizeInBytes > 2 * 1024 * 1024) {
-        return res.status(400).json({ result: 'verificar imagen' });
+        return res.status(200).json({ result: 'verificar imagen' });
     }
 
     // Validate names
     if (!/^[a-zA-Z]{1,30}$/.test(primerNombre) && primerNombre) {
-        return res.status(400).json({ result: 'verificar vacio' });
+        return res.status(200).json({ result: 'verificar vacio' });
     }
 
     if (/^ *$/.test(segundoNombre) && segundoNombre) {
@@ -80,13 +99,13 @@ app.post('/create', async (req, res) => {
     }
 
     if (/^ *$/.test(apellidos) && apellidos) {
-        return res.status(400).json({ result: 'verificar vacio' });
+        return res.status(200).json({ result: 'verificar vacio' });
     }
 
     // Check if the document number already exists
     const docSnapshot = await collection.findOne({ numeroDocumento: numeroDocumento });
     if (docSnapshot) {
-        return res.status(400).json({ result: 'verificar repetido' });
+        return res.status(200).json({ result: 'verificar repetido' });
     }
 
     // Create user document
@@ -105,11 +124,10 @@ app.post('/create', async (req, res) => {
 
     try {
         await collection.insertOne(userDocument);
-        const currentDate = new Date();
         const logDocument = {
             id: numeroDocumento,
-            tipo: 'create',
-            fecha: currentDate,
+            tipo: 'Crear',
+            fecha: formatDate(new Date()),
         };
         await logCollection.insertOne(logDocument);
         return res.status(200).json({ result: 'exito' });
