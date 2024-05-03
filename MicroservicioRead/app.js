@@ -34,10 +34,22 @@ async function getConnection() {
 
 app.use(express.json());
 
+app.options('/read', (req, res) => {
+    // Set CORS headers for preflight requests
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+    res.status(200).end();
+});
+
 app.post('/read', async (req, res) => {
     const {
         numeroDocumento
     } = req.body.data;
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
 
     function formatDate(date) { const day = date.getDate().toString().padStart(2, '0'); 
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -53,7 +65,7 @@ app.post('/read', async (req, res) => {
         const doc = await collection.findOne({ numeroDocumento: numeroDocumento });
         
         if (!doc) {
-            return res.status(400).json({ result: {
+            return res.status(200).json({ result: {
                 mensaje: 'verificar inexistente',
                 usuario: null
             }});

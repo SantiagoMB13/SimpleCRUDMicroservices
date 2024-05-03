@@ -34,6 +34,14 @@ async function getConnection() {
 
 app.use(express.json());
 
+app.options('/update', (req, res) => {
+    // Set CORS headers for preflight requests
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+    res.status(200).end();
+});
+
 app.post('/update', async (req, res) => {
     let {
         urlFoto,
@@ -47,6 +55,10 @@ app.post('/update', async (req, res) => {
         correo,
         celular
     } = req.body.data;
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
 
     const connection = await getConnection();
     const collection = connection.db('MainDB').collection('usuarios');
@@ -89,22 +101,22 @@ app.post('/update', async (req, res) => {
     const sizeInBytes = metadata[0].size;
     
     if (sizeInBytes > 2 * 1024 * 1024) {
-        return res.status(400).json({ result: 'verificar imagen'});
+        return res.status(200).json({ result: 'verificar imagen'});
     } 
     }
 
     if (!/^[a-zA-Z]{1,30}$/.test(primerNombre) && primerNombre) {
-        return res.status(400).json({ result: 'verificar vacio'});
+        return res.status(200).json({ result: 'verificar vacio'});
     }
 
     if (/^ *$/.test(apellidos) && apellidos) {
-        return res.status(400).json({ result: 'verificar vacio'});
+        return res.status(200).json({ result: 'verificar vacio'});
     }
 
     // Verificar si el ID ya existe en MongoDB
     const docSnapshot = await collection.findOne({ numeroDocumento: numeroDocumento });
     if (!docSnapshot) {
-      return res.status(400).json({ result: 'verificar inexistente'});
+      return res.status(200).json({ result: 'verificar inexistente'});
     }
 
 
@@ -122,7 +134,7 @@ app.post('/update', async (req, res) => {
 
     // Verificar si no hay cambios para actualizar
     if (Object.keys(updateFields).length === 0) {
-        return res.status(400).json({ result: 'verificar incompleto'});
+        return res.status(200).json({ result: 'verificar incompleto'});
     }
 
     try{

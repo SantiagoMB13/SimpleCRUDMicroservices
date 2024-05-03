@@ -34,10 +34,28 @@ async function getConnection() {
 
 app.use(express.json());
 
+app.options('/delete', (req, res) => {
+    // Set CORS headers for preflight requests
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+    res.status(200).end();
+});
+
 app.post('/delete', async (req, res) => {
     const {
         numeroDocumento
     } = req.body.data;
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+
+  function formatDate(date) { 
+    const day = date.getDate().toString().padStart(2, '0'); 
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const year = date.getFullYear(); return `${day}-${month}-${year}`; 
+  }
 
     const connection = await getConnection();
     const collection = connection.db('MainDB').collection('usuarios');
@@ -45,12 +63,12 @@ app.post('/delete', async (req, res) => {
 
     try {
         if(!numeroDocumento){
-           return res.status(400).json({ result: 'verificar vacio'});
+           return res.status(200).json({ result: 'verificar vacio'});
         }
         const doc = await collection.findOne({ numeroDocumento: numeroDocumento });
         
         if (!doc) {
-            return res.status(400).json({ result: 'verificar inexistente'});
+            return res.status(200).json({ result: 'verificar inexistente'});
         }
 
         await collection.deleteOne({ numeroDocumento: numeroDocumento });
@@ -58,8 +76,8 @@ app.post('/delete', async (req, res) => {
         // Crear el registro en el log
         await logCollection.insertOne({
             id: numeroDocumento,
-            tipo: 'delete',
-            fecha: new Date()
+            tipo: 'Borrar',
+            fecha: formatDate(new Date())
         });    
 
         return res.status(200).json({ result: 'exito' });

@@ -34,6 +34,14 @@ async function getConnection() {
 
 app.use(express.json());
 
+app.options('/readlog', (req, res) => {
+    // Set CORS headers for preflight requests
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:1200'); // Replace with your client's origin
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+    res.status(200).end();
+});
+
 app.post('/readlog', async (req, res) => {
     let {
         numeroDocumento,
@@ -51,7 +59,7 @@ app.post('/readlog', async (req, res) => {
         }
 
         if (!/^\d{2}-\d{2}-\d{4}$/.test(opdate) && opdate) {
-            return res.status(400).json( {result: {
+            return res.status(200).json( {result: {
                     mensaje: 'verificar fecha',
                     logs: []
                 }});
@@ -77,7 +85,7 @@ app.post('/readlog', async (req, res) => {
                 logs: logDocuments
             }});
         } else {
-            return res.status(400).json( {result: {
+            return res.status(200).json( {result: {
                 mensaje: 'verificar inexistente',
                 logs: []
             }});
