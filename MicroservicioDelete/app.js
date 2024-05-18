@@ -51,11 +51,13 @@ app.post('/delete', async (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST'); // Allow POST requests
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
 
-  function formatDate(date) { 
-    const day = date.getDate().toString().padStart(2, '0'); 
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
-    const year = date.getFullYear(); return `${day}-${month}-${year}`; 
-  }
+    function formatDate(date) { 
+        // Obtener las partes de la fecha
+        const anio = date.toLocaleString('es-ES', { year: 'numeric', timeZone: 'America/Bogota' });
+        const mes = date.toLocaleString('es-ES', { month: '2-digit', timeZone: 'America/Bogota' });
+        const dia = date.toLocaleString('es-ES', { day: '2-digit', timeZone: 'America/Bogota' });
+        return `${dia}-${mes}-${anio}`; 
+      }
 
     const connection = await getConnection();
     const collection = connection.db('MainDB').collection('usuarios');
