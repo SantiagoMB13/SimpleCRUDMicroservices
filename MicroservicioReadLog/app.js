@@ -73,7 +73,7 @@ app.post('/readlog', async (req, res) => {
         let filter = {};
         if (numeroDocumento) filter.id = numeroDocumento;
         if (opdate) {
-        filter.opdate = opdate;
+        filter.fecha = opdate;
     }
         if (operation) filter.tipo = operation;
 
