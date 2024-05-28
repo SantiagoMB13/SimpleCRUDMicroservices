@@ -90,8 +90,7 @@ app.post('/update', async (req, res) => {
 
     if (urlFoto){
     var urlFoto2 = urlFoto.replace('https://firebasestorage.googleapis.com/v0/b/crud-db-e2974.appspot.com/o/', '');  
-    urlFoto2 = urlFoto2.replace('%2F', '/');
-    urlFoto2 = urlFoto2.replace('%2F', '/');
+    urlFoto2 = urlFoto2.replaceAll('%2F', '/');
     urlFoto2 = urlFoto2.split('?alt')[0];
     const imageRef = admin.storage().bucket("crud-db-e2974.appspot.com").file(urlFoto2);
 
