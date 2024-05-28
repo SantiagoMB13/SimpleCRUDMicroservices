@@ -127,15 +127,15 @@ class _UserinfoWidgetState extends State<UserinfoWidget>
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
-                        bottomRight: Radius.circular(12.0),
+                        bottomRight: Radius.circular(0.0),
                         topLeft: Radius.circular(0.0),
-                        topRight: Radius.circular(12.0),
+                        topRight: Radius.circular(0.0),
                       ),
                       child: Image.network(
                         widget.img!,
-                        width: 160.0,
-                        height: 100.0,
-                        fit: BoxFit.cover,
+                        width: 350.0,
+                        height: 300.0,
+                        fit: BoxFit.scaleDown,
                       ),
                     ),
                   ),

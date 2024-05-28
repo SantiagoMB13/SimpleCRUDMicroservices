@@ -238,6 +238,7 @@ class _BorrarWidgetState extends State<BorrarWidget> {
                               _model.idTextController?.clear();
                             });
                             logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).clearSnackBars();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -245,7 +246,7 @@ class _BorrarWidgetState extends State<BorrarWidget> {
                                   style: TextStyle(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                                 duration: const Duration(milliseconds: 4000),

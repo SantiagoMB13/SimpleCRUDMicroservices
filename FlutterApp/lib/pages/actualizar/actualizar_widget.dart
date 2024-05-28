@@ -198,19 +198,17 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                                   }
 
                                   logFirebaseEvent('IconButton_show_snack_bar');
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
                                         '¡Foto subida exitosamente!',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              letterSpacing: 0.0,
-                                            ),
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                       ),
                                       duration: const Duration(milliseconds: 4000),
                                       backgroundColor:
@@ -1337,6 +1335,7 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                             });
 
                             logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).clearSnackBars();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -1344,7 +1343,7 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                                   style: TextStyle(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                                 duration: const Duration(milliseconds: 4000),
