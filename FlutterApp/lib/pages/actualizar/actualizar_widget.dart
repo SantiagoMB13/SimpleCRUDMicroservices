@@ -124,24 +124,17 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 18.0),
-                              child: FlutterFlowIconButton(
-                                borderColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                borderRadius: 50.0,
-                                borderWidth: 1.0,
-                                buttonSize: 100.0,
-                                fillColor: FlutterFlowTheme.of(context).primary,
-                                icon: Icon(
-                                  Icons.image_search,
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                  size: 50.0,
-                                ),
-                                onPressed: () async {
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
                                   logFirebaseEvent(
-                                      'ACTUALIZAR_PAGE_image_search_ICN_ON_TAP');
+                                      'ACTUALIZAR_PAGE_Image_bmexkwq8_ON_TAP');
                                   logFirebaseEvent(
-                                      'IconButton_upload_media_to_firebase');
+                                      'Image_upload_media_to_firebase');
                                   final selectedMedia = await selectMedia(
                                     mediaSource: MediaSource.photoGallery,
                                     multiImage: false,
@@ -197,7 +190,7 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                                     }
                                   }
 
-                                  logFirebaseEvent('IconButton_show_snack_bar');
+                                  logFirebaseEvent('Image_show_snack_bar');
                                   ScaffoldMessenger.of(context)
                                       .clearSnackBars();
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -216,6 +209,22 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                                     ),
                                   );
                                 },
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(12.0),
+                                    bottomRight: Radius.circular(12.0),
+                                    topLeft: Radius.circular(12.0),
+                                    topRight: Radius.circular(12.0),
+                                  ),
+                                  child: Image.network(
+                                    _model.uploadedFileUrl != ''
+                                        ? _model.uploadedFileUrl
+                                        : 'https://cdn-icons-png.flaticon.com/512/921/921359.png',
+                                    width: 250.0,
+                                    height: 150.0,
+                                    fit: BoxFit.scaleDown,
+                                  ),
+                                ),
                               ),
                             ),
                             Align(
@@ -1377,6 +1386,21 @@ class _ActualizarWidgetState extends State<ActualizarWidget> {
                               _model.uploadedFileUrl = '';
                             });
 
+                            logFirebaseEvent('Button_reset_form_fields');
+                            setState(() {
+                              _model.idTextController?.clear();
+                              _model.firstnameTextController?.clear();
+                              _model.secondnameTextController?.clear();
+                              _model.lastnameTextController?.clear();
+                              _model.dateTextController?.text = ' ';
+                              _model.emailAddressTextController?.text = ' ';
+                              _model.phoneTextController?.text = ' ';
+                            });
+                            logFirebaseEvent('Button_reset_form_fields');
+                            setState(() {
+                              _model.tipoidValueController?.reset();
+                              _model.generoValueController?.reset();
+                            });
                             if (shouldSetState) setState(() {});
                             return;
                           }

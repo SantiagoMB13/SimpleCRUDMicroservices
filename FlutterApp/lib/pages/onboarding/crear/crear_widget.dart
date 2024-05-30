@@ -139,24 +139,17 @@ class _CrearWidgetState extends State<CrearWidget> {
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 18.0),
-                            child: FlutterFlowIconButton(
-                              borderColor:
-                                  FlutterFlowTheme.of(context).alternate,
-                              borderRadius: 50.0,
-                              borderWidth: 1.0,
-                              buttonSize: 100.0,
-                              fillColor: FlutterFlowTheme.of(context).primary,
-                              icon: Icon(
-                                Icons.image_search,
-                                color: FlutterFlowTheme.of(context).alternate,
-                                size: 50.0,
-                              ),
-                              onPressed: () async {
+                                0.0, 0.0, 0.0, 20.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
                                 logFirebaseEvent(
-                                    'CREAR_PAGE_image_search_ICN_ON_TAP');
+                                    'CREAR_PAGE_Image_7vqncw2u_ON_TAP');
                                 logFirebaseEvent(
-                                    'IconButton_upload_media_to_firebase');
+                                    'Image_upload_media_to_firebase');
                                 final selectedMedia = await selectMedia(
                                   mediaSource: MediaSource.photoGallery,
                                   multiImage: false,
@@ -210,7 +203,7 @@ class _CrearWidgetState extends State<CrearWidget> {
                                   }
                                 }
 
-                                logFirebaseEvent('IconButton_show_snack_bar');
+                                logFirebaseEvent('Image_show_snack_bar');
                                 ScaffoldMessenger.of(context).clearSnackBars();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -228,6 +221,22 @@ class _CrearWidgetState extends State<CrearWidget> {
                                   ),
                                 );
                               },
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.0),
+                                  bottomRight: Radius.circular(12.0),
+                                  topLeft: Radius.circular(12.0),
+                                  topRight: Radius.circular(12.0),
+                                ),
+                                child: Image.network(
+                                  _model.uploadedFileUrl != ''
+                                      ? _model.uploadedFileUrl
+                                      : 'https://cdn-icons-png.flaticon.com/512/921/921359.png',
+                                  width: 250.0,
+                                  height: 150.0,
+                                  fit: BoxFit.scaleDown,
+                                ),
+                              ),
                             ),
                           ),
                           Align(
@@ -1159,27 +1168,6 @@ class _CrearWidgetState extends State<CrearWidget> {
                               !_model.formKey.currentState!.validate()) {
                             return;
                           }
-                          if (_model.uploadedFileUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Debe añadir una imagen',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                                duration: const Duration(milliseconds: 4000),
-                                backgroundColor: const Color(0xFFEE1010),
-                              ),
-                            );
-                            return;
-                          }
                           if (_model.tipoidValue == null) {
                             return;
                           }
@@ -1345,6 +1333,21 @@ class _CrearWidgetState extends State<CrearWidget> {
                               _model.uploadedFileUrl = '';
                             });
 
+                            logFirebaseEvent('Button_reset_form_fields');
+                            setState(() {
+                              _model.idTextController?.clear();
+                              _model.firstnameTextController?.clear();
+                              _model.secondnameTextController?.clear();
+                              _model.lastnameTextController?.clear();
+                              _model.dateTextController?.clear();
+                              _model.emailAddressTextController?.clear();
+                              _model.phoneTextController?.clear();
+                            });
+                            logFirebaseEvent('Button_reset_form_fields');
+                            setState(() {
+                              _model.tipoidValueController?.reset();
+                              _model.generoValueController?.reset();
+                            });
                             if (shouldSetState) setState(() {});
                             return;
                           }
