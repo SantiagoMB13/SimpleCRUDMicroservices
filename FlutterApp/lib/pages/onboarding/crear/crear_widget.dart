@@ -1171,6 +1171,25 @@ class _CrearWidgetState extends State<CrearWidget> {
                           if (_model.tipoidValue == null) {
                             return;
                           }
+                          if (!(_model.uploadedFileUrl != '')) {
+                            logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Debes subir una imagen',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  ),
+                                ),
+                                duration: const Duration(milliseconds: 4000),
+                                backgroundColor: const Color(0xFFEE1010),
+                              ),
+                            );
+                            if (shouldSetState) setState(() {});
+                            return;
+                          }
                           logFirebaseEvent('Button_custom_action');
                           _model.resultadoFunc =
                               await actions.callCreateFunction(
