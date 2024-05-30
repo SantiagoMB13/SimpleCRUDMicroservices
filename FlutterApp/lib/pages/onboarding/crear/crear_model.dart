@@ -13,9 +13,6 @@ class CrearModel extends FlutterFlowModel<CrearWidget> {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
-  // State field(s) for tipoid widget.
-  String? tipoidValue;
-  FormFieldController<String>? tipoidValueController;
   // State field(s) for id widget.
   FocusNode? idFocusNode;
   TextEditingController? idTextController;
@@ -37,6 +34,9 @@ class CrearModel extends FlutterFlowModel<CrearWidget> {
     return null;
   }
 
+  // State field(s) for tipoid widget.
+  String? tipoidValue;
+  FormFieldController<String>? tipoidValueController;
   // State field(s) for firstname widget.
   FocusNode? firstnameFocusNode;
   TextEditingController? firstnameTextController;

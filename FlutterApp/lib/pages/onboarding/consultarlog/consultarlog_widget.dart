@@ -648,7 +648,6 @@ class _ConsultarlogWidgetState extends State<ConsultarlogWidget> {
                                     final logs = FFAppState().logs.toList();
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
-                                      reverse: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: logs.length,
                                       itemBuilder: (context, logsIndex) {
