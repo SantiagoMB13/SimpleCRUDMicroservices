@@ -37,9 +37,8 @@ class _ConsultarlogWidgetState extends State<ConsultarlogWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CONSULTARLOG_Consultarlog_ON_INIT_STATE');
       logFirebaseEvent('Consultarlog_update_page_state');
-      setState(() {
-        _model.showLog = false;
-      });
+      _model.showLog = false;
+      setState(() {});
     });
 
     _model.idTextController ??= TextEditingController();
@@ -491,9 +490,8 @@ class _ConsultarlogWidgetState extends State<ConsultarlogWidget> {
                               'CONSULTARLOG_CONSULTAR_REGISTROS_BTN_ON_');
                           var shouldSetState = false;
                           logFirebaseEvent('Button_update_page_state');
-                          setState(() {
-                            _model.showLog = false;
-                          });
+                          _model.showLog = false;
+                          setState(() {});
                           logFirebaseEvent('Button_custom_action');
                           _model.resultadoFunc = await actions.callLogFunction(
                             _model.idTextController.text,
@@ -568,19 +566,17 @@ class _ConsultarlogWidgetState extends State<ConsultarlogWidget> {
                               _model.dateTextController?.clear();
                             });
                             logFirebaseEvent('Button_update_app_state');
-                            setState(() {
-                              FFAppState().logs = getJsonField(
-                                _model.resultadoFunc,
-                                r'''$['result']['logs']''',
-                                true,
-                              )!
-                                  .toList()
-                                  .cast<dynamic>();
-                            });
+                            FFAppState().logs = getJsonField(
+                              _model.resultadoFunc,
+                              r'''$['result']['logs']''',
+                              true,
+                            )!
+                                .toList()
+                                .cast<dynamic>();
+                            setState(() {});
                             logFirebaseEvent('Button_update_page_state');
-                            setState(() {
-                              _model.showLog = true;
-                            });
+                            _model.showLog = true;
+                            setState(() {});
                             if (shouldSetState) setState(() {});
                             return;
                           } else {

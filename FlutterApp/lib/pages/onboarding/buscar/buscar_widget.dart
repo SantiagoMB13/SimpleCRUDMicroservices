@@ -37,9 +37,8 @@ class _BuscarWidgetState extends State<BuscarWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('BUSCAR_PAGE_Buscar_ON_INIT_STATE');
       logFirebaseEvent('Buscar_update_page_state');
-      setState(() {
-        _model.showUser = false;
-      });
+      _model.showUser = false;
+      setState(() {});
     });
 
     _model.idTextController ??= TextEditingController();
@@ -226,9 +225,8 @@ class _BuscarWidgetState extends State<BuscarWidget> {
                                     'BUSCAR_PAGE_BUSCAR_USUARIO_BTN_ON_TAP');
                                 var shouldSetState = false;
                                 logFirebaseEvent('Button_update_page_state');
-                                setState(() {
-                                  _model.showUser = false;
-                                });
+                                _model.showUser = false;
+                                setState(() {});
                                 logFirebaseEvent('Button_validate_form');
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
@@ -292,9 +290,8 @@ class _BuscarWidgetState extends State<BuscarWidget> {
                                     _model.idTextController?.clear();
                                   });
                                   logFirebaseEvent('Button_update_page_state');
-                                  setState(() {
-                                    _model.showUser = true;
-                                  });
+                                  _model.showUser = true;
+                                  setState(() {});
                                   if (shouldSetState) setState(() {});
                                   return;
                                 } else {

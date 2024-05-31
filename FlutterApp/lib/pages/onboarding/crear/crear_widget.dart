@@ -203,6 +203,9 @@ class _CrearWidgetState extends State<CrearWidget> {
                                   }
                                 }
 
+                                if (!(_model.uploadedFileUrl != '')) {
+                                  return;
+                                }
                                 logFirebaseEvent('Image_show_snack_bar');
                                 ScaffoldMessenger.of(context).clearSnackBars();
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -492,7 +495,7 @@ class _CrearWidgetState extends State<CrearWidget> {
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        RegExp('^[a-zA-Z ]*\$'))
+                                        RegExp('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*\$'))
                                   ],
                                 ),
                               ],
@@ -588,7 +591,7 @@ class _CrearWidgetState extends State<CrearWidget> {
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        RegExp('^[a-zA-Z ]*\$'))
+                                        RegExp('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*\$'))
                                   ],
                                 ),
                               ],
@@ -684,7 +687,7 @@ class _CrearWidgetState extends State<CrearWidget> {
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        RegExp('^[a-zA-Z ]*\$'))
+                                        RegExp('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*\$'))
                                   ],
                                 ),
                               ],
@@ -1054,7 +1057,7 @@ class _CrearWidgetState extends State<CrearWidget> {
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        RegExp('^[a-zA-Z0-9._%+-@]*\$'))
+                                        RegExp('^[a-zA-ZñÑ0-9._%+-@\\.]*\$'))
                                   ],
                                 ),
                               ],
