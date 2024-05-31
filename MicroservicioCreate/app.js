@@ -43,7 +43,7 @@ app.options('/create', (req, res) => {
 });
 
 app.post('/create', async (req, res) => {
-    const {
+    let {
         urlFoto,
         tipoDocumento,
         numeroDocumento,
