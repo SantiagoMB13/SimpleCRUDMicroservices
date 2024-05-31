@@ -21,7 +21,7 @@ Luego, ejecutar el comando correspondiente al microservicio. Ej: Para ReadLog se
 - docker run -d -p 3300:3300 --network=my-network --name read-container readimage
 - docker run -d -p 3200:3200 --network=my-network --name update-container updateimage
 - docker run -d -p 3100:3100 --network=my-network --name delete-container deleteimage
-- docker run -d -p 3400:3400 --network=my-network --name create-container createimage
+- docker run -d -p 3000:3000 --network=my-network --name create-container createimage
 
 Para desplegar la base de datos:
 - docker run -d -p 27017:27017 --network=my-network --name mongodb-container mongo:latest
